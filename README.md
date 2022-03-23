@@ -313,7 +313,7 @@ BleshSdk.configure({});
 
 | Property   |	Type   | Description                                                                       | Example |
 |------------|---------|-----------------------------------------------------------------------------------|---------|
-| adsEnabled | boolean | Configures get ads from SDK                                                       | `true`    |
+| adsEnabled | boolean | Configures getting ads from SDK                                                   | `true`    |
 | testMode   | boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false) | `false`   |
 
 > Note: TestMode is off by default. You can enable this mode during your integration tests. Production environment will not be effected when this flag is set to true.
@@ -435,7 +435,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignNotificationReceived(e => {
-    console.log("campaingId:" + e.campaignId);
+    console.log("campaignId:" + e.campaignId);
 
     // set to deny or accept Blesh SDK from displaying this campaign and push notification
     BleshSdk.abortCampaignNotification(e.campaignId)
@@ -448,7 +448,7 @@ if (Platform.OS === 'android') {
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignDisplayed(e => {
-    console.log("campaingId:" + e.campaignId);
+    console.log("campaignId:" + e.campaignId);
     console.log("contentId:" + e.contentId);
     console.log("notificationId:" + e.notificationId);
   });
@@ -456,7 +456,7 @@ if (Platform.OS === 'android') {
 ```
 ### Notifying the Blesh iOS SDK About Changes in Permissions
 
-Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
+Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask for location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
 
 When the location permission changes, your application should call the `didChangeLocationAuthorization` method of `BleshSdk` with the new status.
 
