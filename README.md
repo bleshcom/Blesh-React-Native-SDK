@@ -160,7 +160,7 @@ Push notifications are rendered with the Blesh logo by default. You can customiz
 
 #### Notification Color
 
-Push notifications are rendered with the `#351F78` color by default. You can customize this logo by providing a resource with the `com.blesh.sdk.notificationColor` key.
+Push notifications are rendered with the `#351F78` color by default. You can customize this color by providing a resource with the `com.blesh.sdk.notificationColor` key.
 
 #### Permissions
 
