@@ -1,6 +1,6 @@
 # Blesh React Native SDK 5 Developer Guide
 
-**Version:** *1.0.0*
+**Version:** *1.0.1*
 
 This document describes integration of the Blesh SDK with your React Native application.
 
@@ -38,6 +38,9 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [Notifying the Blesh iOS SDK About Changes in Permissions](#notifying-the-blesh-ios-sdk-about-changes-in-permissions)
 
 ## Changelog
+
+  * **1.0.1** *(Released 2022-04-13)*
+    * Updated build.gradle
 
   * **1.0.0** *(Released 2022-03-23)*
     * Initial release with Blesh Android SDK v5.2.8 and Blesh iOS SDK v5.2.10
@@ -160,7 +163,7 @@ Push notifications are rendered with the Blesh logo by default. You can customiz
 
 #### Notification Color
 
-Push notifications are rendered with the `#351F78` color by default. You can customize this color by providing a resource with the `com.blesh.sdk.notificationColor` key.
+Push notifications are rendered with the `#351F78` color by default. You can customize this logo by providing a resource with the `com.blesh.sdk.notificationColor` key.
 
 #### Permissions
 
@@ -284,7 +287,7 @@ You can insert it into your `Info.plist` file in the following syntax.
 
 This descriptor is used in all iOS versions. Provides permission for only when the application is in use. We advice you to warn your users about very low performance on receiving nearby offers.
 
-Sample Text: *“This application uses your location in order to inform you about interesting offers nearby. Allowing location when in use only may result in poor performance in finding nearby offers!”*
+Sample Text: *âThis application uses your location in order to inform you about interesting offers nearby. Allowing location when in use only may result in poor performance in finding nearby offers!â*
 
 You can insert it into your `Info.plist` file in the following syntax.
 
@@ -313,7 +316,7 @@ BleshSdk.configure({});
 
 | Property   |	Type   | Description                                                                       | Example |
 |------------|---------|-----------------------------------------------------------------------------------|---------|
-| adsEnabled | boolean | Configures getting ads from SDK                                                   | `true`    |
+| adsEnabled | boolean | Configures get ads from SDK                                                       | `true`    |
 | testMode   | boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false) | `false`   |
 
 > Note: TestMode is off by default. You can enable this mode during your integration tests. Production environment will not be effected when this flag is set to true.
@@ -435,7 +438,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignNotificationReceived(e => {
-    console.log("campaignId:" + e.campaignId);
+    console.log("campaingId:" + e.campaignId);
 
     // set to deny or accept Blesh SDK from displaying this campaign and push notification
     BleshSdk.abortCampaignNotification(e.campaignId)
@@ -448,7 +451,7 @@ if (Platform.OS === 'android') {
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignDisplayed(e => {
-    console.log("campaignId:" + e.campaignId);
+    console.log("campaingId:" + e.campaignId);
     console.log("contentId:" + e.contentId);
     console.log("notificationId:" + e.notificationId);
   });
@@ -456,7 +459,7 @@ if (Platform.OS === 'android') {
 ```
 ### Notifying the Blesh iOS SDK About Changes in Permissions
 
-Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask for location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
+Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
 
 When the location permission changes, your application should call the `didChangeLocationAuthorization` method of `BleshSdk` with the new status.
 
