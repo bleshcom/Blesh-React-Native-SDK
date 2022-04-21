@@ -1,6 +1,6 @@
 # Blesh React Native SDK 5 Developer Guide
 
-**Version:** *1.0.1*
+**Version:** *1.1.0*
 
 This document describes integration of the Blesh SDK with your React Native application.
 
@@ -39,6 +39,9 @@ This document describes integration of the Blesh SDK with your React Native appl
 
 ## Changelog
 
+  * **1.1.0** *(Released 2022-04-21)*
+    * Released with Blesh Android SDK v5.3.0 and Blesh iOS SDK v5.3.0
+
   * **1.0.1** *(Released 2022-04-13)*
     * Updated build.gradle
 
@@ -55,7 +58,7 @@ This library is tested using React Native v0.67.3.
 
 ### Android Requirements
 
-Compile SDK Version and Target SDK Version of Blesh Android SDK is 30. In order to integrate the Blesh Android SDK make sure you are:
+Compile SDK Version and Target SDK Version of Blesh Android SDK is 31. In order to integrate the Blesh Android SDK make sure you are:
 
   * Targeting Android version 4.1 (API level 16) or higher
   * Registered on the [Blesh Publisher Portal](https://publisher.blesh.com)
@@ -163,7 +166,7 @@ Push notifications are rendered with the Blesh logo by default. You can customiz
 
 #### Notification Color
 
-Push notifications are rendered with the `#351F78` color by default. You can customize this logo by providing a resource with the `com.blesh.sdk.notificationColor` key.
+Push notifications are rendered with the `#351F78` color by default. You can customize this color by providing a resource with the `com.blesh.sdk.notificationColor` key.
 
 #### Permissions
 
@@ -316,7 +319,7 @@ BleshSdk.configure({});
 
 | Property   |	Type   | Description                                                                       | Example |
 |------------|---------|-----------------------------------------------------------------------------------|---------|
-| adsEnabled | boolean | Configures get ads from SDK                                                       | `true`    |
+| adsEnabled | boolean | Configures getting ads from SDK                                                   | `true`    |
 | testMode   | boolean | Use the SDK in the test mode (true) or use the SDK in the production mode (false) | `false`   |
 
 > Note: TestMode is off by default. You can enable this mode during your integration tests. Production environment will not be effected when this flag is set to true.
@@ -433,12 +436,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 }
 ```
 
+**Example:** Native Objective-C code (AppDelegate.h)
+
+```objective-c
+#import <UserNotifications/UserNotifications.h>
+// ... rest of imports ...
+
+@interface AppDelegate : EXAppDelegateWrapper <RCTBridgeDelegate, UNUserNotificationCenterDelegate>
+
+// ... rest of the interface ...
+
+@end
+```
+
+**Example:** Native Objective-C code (AppDelegate.m)
+
+```objective-c
+#import <BleshSDK/BleshSDK.h>
+// ... rest of imports ...
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  // mark this class as a UNUserNotificationCenterDelegate
+  if (@available(iOS 10, *)) {
+    [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+  }
+
+  // ... rest of the method ...
+
+  return YES;
+ }
+
+// this method will be called when app received push notifications in foreground
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+{
+  completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionBadge);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler
+{
+  [[BleshSdk sharedInstance] didReceiveUNNotificationResponse:response];
+
+  completionHandler();
+}
+
+// ... rest of the class ...
+
+@end
+```
+
 ### Controlling Android Push Notification Campaign Rendering
 
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignNotificationReceived(e => {
-    console.log("campaingId:" + e.campaignId);
+    console.log("campaignId:" + e.campaignId);
 
     // set to deny or accept Blesh SDK from displaying this campaign and push notification
     BleshSdk.abortCampaignNotification(e.campaignId)
@@ -451,7 +507,7 @@ if (Platform.OS === 'android') {
 ```javascript
 if (Platform.OS === 'android') {
   BleshSdk.setOnCampaignDisplayed(e => {
-    console.log("campaingId:" + e.campaignId);
+    console.log("campaignId:" + e.campaignId);
     console.log("contentId:" + e.contentId);
     console.log("notificationId:" + e.notificationId);
   });
@@ -459,7 +515,7 @@ if (Platform.OS === 'android') {
 ```
 ### Notifying the Blesh iOS SDK About Changes in Permissions
 
-Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
+Starting from Blesh iOS SDK 4.0.7, the SDK does not ask the user for permissions. Your application needs to ask for location permissions. See "[iOS Permissions](#permissions-1)" section for more information.
 
 When the location permission changes, your application should call the `didChangeLocationAuthorization` method of `BleshSdk` with the new status.
 
