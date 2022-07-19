@@ -1,6 +1,6 @@
 # Blesh React Native SDK 5 Developer Guide
 
-**Version:** *1.1.0*
+**Version:** *1.2.0*
 
 This document describes integration of the Blesh SDK with your React Native application.
 
@@ -38,6 +38,9 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [Notifying the Blesh iOS SDK About Changes in Permissions](#notifying-the-blesh-ios-sdk-about-changes-in-permissions)
 
 ## Changelog
+
+  * **1.2.0** *(Released 2022-07-19)*
+    * Released with Blesh Android SDK v5.4.2 and Blesh iOS SDK v5.4.0
 
   * **1.1.0** *(Released 2022-04-21)*
     * Released with Blesh Android SDK v5.3.0 and Blesh iOS SDK v5.3.0
@@ -182,9 +185,17 @@ In order to properly initialize the SDK, you need to use internet and access net
     <!-- ... -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="replace" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
 
     <!-- ... -->
 
@@ -290,7 +301,7 @@ You can insert it into your `Info.plist` file in the following syntax.
 
 This descriptor is used in all iOS versions. Provides permission for only when the application is in use. We advice you to warn your users about very low performance on receiving nearby offers.
 
-Sample Text: *âThis application uses your location in order to inform you about interesting offers nearby. Allowing location when in use only may result in poor performance in finding nearby offers!â*
+Sample Text: *“This application uses your location in order to inform you about interesting offers nearby. Allowing location when in use only may result in poor performance in finding nearby offers!”*
 
 You can insert it into your `Info.plist` file in the following syntax.
 
