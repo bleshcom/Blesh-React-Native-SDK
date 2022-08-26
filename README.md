@@ -18,7 +18,9 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [2. (Optional) Linking the Blesh React Native SDK NPM library](#2-optional-linking-the-blesh-react-native-sdk-npm-library)
     - [3. (Optional) Preparing the Development Environment](#3-optional-preparing-the-development-environment)
     - [4. Defining the Android SDK Location](#4-defining-the-android-sdk-location)
-    - [5. Adding Blesh Android SDK Maven Repository](#5-adding-blesh-android-sdk-maven-repository)
+    - [5. Managing Native Dependencies](#5-managing-native-dependencies)
+      - [Adding Blesh Android SDK Maven Repository](#adding-blesh-android-sdk-maven-repository)
+      - [Updating CocoaPods for iOS](#updating-cocoapods-for-ios)
     - [6. Configuring Blesh Android SDK](#6-configuring-blesh-android-sdk)
       - [Secret Key](#secret-key)
       - [Notification Icon](#notification-icon)
@@ -102,27 +104,29 @@ In order to integrate the Blesh iOS SDK make sure you are:
 NPM registry for "@blesh" scope can be defined as:
 
 ```shell
-$ npm config set @blesh:registry https://artifact.blesh.com/repository/npm/
+npm config set @blesh:registry https://artifact.blesh.com/repository/npm/
 ```
 
 After this one-time definition, the npm library can be added with:
 
 ```shell
-$ npm install "@blesh/blesh-react-native-sdk" --save
+npm install "@blesh/blesh-react-native-sdk" --save
 ```
 
 ### 2. (Optional) Linking the Blesh React Native SDK NPM library
 
+> This step is not required with newer versions of React Native
+
 If you use npx then you can link the library using:
 
 ```shell
-$ npx react-native link @blesh/blesh-react-native-sdk
+npx react-native link @blesh/blesh-react-native-sdk
 ```
 
 Alternatively, if you use react native CLI then you can link the library using:
 
 ```shell
-$ react-native link @blesh/blesh-react-native-sdk
+react-native link @blesh/blesh-react-native-sdk
 ```
 
 ### 3. (Optional) Preparing the Development Environment
@@ -130,7 +134,7 @@ $ react-native link @blesh/blesh-react-native-sdk
 If you haven't already done so, you can use `expo` to eject native source code:
 
 ```shell
-$ expo eject
+expo eject
 ``` 
 
 [This site](https://docs.expo.dev/workflow/customizing/) contains more information about the process.
@@ -147,7 +151,9 @@ sdk.dir = /path/of/your/android/sdk
 
 Alternatively, building the Android application with Android Studio may also set the SDK location.
 
-### 5. Adding Blesh Android SDK Maven Repository
+### 5. Managing Native Dependencies
+
+#### Adding Blesh Android SDK Maven Repository
 
 Add BleshSDK Maven repository to `android/build.gradle` file.
 
@@ -159,6 +165,14 @@ allprojects {
       maven { url 'https://artifact.blesh.com/repository/releases/' }
   }
 }
+```
+
+#### Updating CocoaPods for iOS
+
+Install pods by running the following command on the terminal:
+
+```bash
+pod install
 ```
 
 ### 6. Configuring Blesh Android SDK
@@ -186,6 +200,7 @@ In order to properly initialize the SDK, you need to use internet and access net
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.your.application">
 
     <!-- ... -->
@@ -457,6 +472,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 ```objective-c
 #import <UserNotifications/UserNotifications.h>
+#import <CoreLocation/CoreLocation.h>
 // ... rest of imports ...
 
 @interface AppDelegate : EXAppDelegateWrapper <RCTBridgeDelegate, UNUserNotificationCenterDelegate>
@@ -469,7 +485,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 **Example:** Native Objective-C code (AppDelegate.m)
 
 ```objective-c
-#import <BleshSDK/BleshSDK.h>
+#import <BleshSDK/BleshSDK-Swift.h>
+
 // ... rest of imports ...
 
 @implementation AppDelegate
