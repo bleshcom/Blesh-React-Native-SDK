@@ -1,6 +1,6 @@
 # Blesh React Native SDK 5 Developer Guide
 
-**Version:** *1.2.1*
+**Version:** *1.2.2*
 
 This document describes integration of the Blesh SDK with your React Native application.
 
@@ -15,8 +15,8 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [iOS Requirements](#ios-requirements)
   - [Integration](#integration)
     - [1. Adding the Blesh React Native SDK NPM library](#1-adding-the-blesh-react-native-sdk-npm-library)
-    - [2. Linking the Blesh React Native SDK NPM library](#2-linking-the-blesh-react-native-sdk-npm-library)
-    - [3. Preparing the Development Environment](#3-preparing-the-development-environment)
+    - [2. (Optional) Linking the Blesh React Native SDK NPM library](#2-optional-linking-the-blesh-react-native-sdk-npm-library)
+    - [3. (Optional) Preparing the Development Environment](#3-optional-preparing-the-development-environment)
     - [4. Defining the Android SDK Location](#4-defining-the-android-sdk-location)
     - [5. Adding Blesh Android SDK Maven Repository](#5-adding-blesh-android-sdk-maven-repository)
     - [6. Configuring Blesh Android SDK](#6-configuring-blesh-android-sdk)
@@ -38,6 +38,9 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [Notifying the Blesh iOS SDK About Changes in Permissions](#notifying-the-blesh-ios-sdk-about-changes-in-permissions)
 
 ## Changelog
+
+  * **1.2.2** *(Released 2022-08-26)*
+    * Removed a dependency on the maven plugin for Gradle 7 compatibility
 
   * **1.2.1** *(Released 2022-08-26)*
     * Released with Blesh Android SDK v5.4.3 and Blesh iOS SDK v5.4.2
@@ -108,7 +111,7 @@ After this one-time definition, the npm library can be added with:
 $ npm install "@blesh/blesh-react-native-sdk" --save
 ```
 
-### 2. Linking the Blesh React Native SDK NPM library
+### 2. (Optional) Linking the Blesh React Native SDK NPM library
 
 If you use npx then you can link the library using:
 
@@ -122,7 +125,7 @@ Alternatively, if you use react native CLI then you can link the library using:
 $ react-native link @blesh/blesh-react-native-sdk
 ```
 
-### 3. Preparing the Development Environment
+### 3. (Optional) Preparing the Development Environment
 
 If you haven't already done so, you can use `expo` to eject native source code:
 
