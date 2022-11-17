@@ -1,6 +1,6 @@
 # Blesh React Native SDK 5 Developer Guide
 
-**Version:** *1.2.2*
+**Version:** *1.2.3*
 
 This document describes integration of the Blesh SDK with your React Native application.
 
@@ -40,6 +40,9 @@ This document describes integration of the Blesh SDK with your React Native appl
     - [Notifying the Blesh iOS SDK About Changes in Permissions](#notifying-the-blesh-ios-sdk-about-changes-in-permissions)
 
 ## Changelog
+
+  * **1.2.3** *(Released 2022-11-17)*
+    * Released with Blesh Android SDK v5.4.4 and Blesh iOS SDK v5.4.5
 
   * **1.2.2** *(Released 2022-08-26)*
     * Removed a dependency on the maven plugin for Gradle 7 compatibility
